@@ -1,0 +1,15 @@
+export class __ClassName__ {
+  constructor(
+    public readonly id: string,
+    private createdAt: Date,
+    private updatedAt: Date,
+  ) {}
+
+  public getCreatedAt(): Date {
+    return this.createdAt;
+  }
+
+  public getUpdatedAt(): Date {
+    return this.updatedAt;
+  }
+}

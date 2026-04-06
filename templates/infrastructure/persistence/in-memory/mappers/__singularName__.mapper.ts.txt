@@ -1,0 +1,25 @@
+import { Injectable } from '@nestjs/common';
+import { __ClassName__  } from 'src/__moduleName__/domain/__singularName__';
+import { __ClassName__Entity  } from '../entities/__singularName__.entity';
+import { __ClassName__Factory } from 'src/__moduleName__/domain/factories/__singularName__.factory';
+
+@Injectable()
+export class __ClassName__Mapper {
+  constructor(private readonly factory: __ClassName__Factory) {}
+
+  toDomain(entity: __ClassName__Entity): __ClassName__ {
+    return this.factory.reconstitute(
+      entity.id,
+      entity.createdAt,
+      entity.updatedAt,
+    );
+  }
+
+  toPersistence(domain: __ClassName__): __ClassName__Entity {
+    const entity = new __ClassName__Entity();
+    entity.id = domain.id;
+    entity.createdAt = domain.getCreatedAt();
+    entity.updatedAt = domain.getUpdatedAt();
+    return entity;
+  }
+}

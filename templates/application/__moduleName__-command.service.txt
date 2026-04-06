@@ -1,0 +1,34 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { __ClassName__Repository } from './ports/__singularName__.repository';
+import { __ClassName__Factory } from '../domain/factories/__singularName__.factory';
+import { __ClassName__ } from '../domain/__singularName__';
+import { Create__ClassName__Command } from './commands/create-__singularName__.command';
+import { Update__ClassName__Command } from './commands/update-__singularName__.command';
+
+@Injectable()
+export class __ModuleClassName__CommandService {
+  constructor(
+    private readonly repository: __ClassName__Repository,
+    private readonly factory: __ClassName__Factory,
+  ) {}
+
+  async create(command: Create__ClassName__Command): Promise<__ClassName__> {
+    console.log(command);
+    const newEntity = this.factory.createNew();
+    await this.repository.save(newEntity);
+    return newEntity;
+  }
+
+  async update(command: Update__ClassName__Command): Promise<__ClassName__> {
+    const entity = await this.repository.findById(command.id);
+    if (!entity) throw new NotFoundException('__ClassName__ not found');
+    await this.repository.save(entity);
+    return entity;
+  }
+
+  async remove(id: string): Promise<void> {
+    const entity = await this.repository.findById(id);
+    if (!entity) throw new NotFoundException('__ClassName__ not found');
+    await this.repository.delete(id);
+  }
+}

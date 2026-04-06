@@ -1,0 +1,15 @@
+import { Module } from '@nestjs/common';
+import { Mongoose__ClassName__PersistenceModule } from './persistence/mongoose/mongoose-persistence.module';
+import { InMemory__ClassName__PersistenceModule } from './persistence/in-memory/in-memory-persistence.module';
+
+@Module({})
+export class __ModuleClassName__InfrastructureModule {
+  static use(driver: 'mongoose' | 'in-memory') {
+    const persistenceModule = driver === 'mongoose'?Mongoose__ClassName__PersistenceModule:InMemory__ClassName__PersistenceModule
+    return {
+      module: persistenceModule,
+      imports: [persistenceModule],
+      exports: [persistenceModule],
+    };
+  }
+}

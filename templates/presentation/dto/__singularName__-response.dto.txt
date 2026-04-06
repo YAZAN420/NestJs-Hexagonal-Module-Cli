@@ -1,0 +1,15 @@
+import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
+
+export class __ClassName__ResponseDto {
+  id: string;
+  createdAt: Date;
+  updatedAt: Date;
+
+  static fromEntity(entity: __ClassName__): __ClassName__ResponseDto {
+    const dto = new __ClassName__ResponseDto();
+    dto.id = entity.id;
+    dto.createdAt = entity.getCreatedAt();
+    dto.updatedAt = entity.getUpdatedAt();
+    return dto;
+  }
+}

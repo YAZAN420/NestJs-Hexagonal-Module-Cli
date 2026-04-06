@@ -1,0 +1,71 @@
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
+import { __ModuleClassName__CommandService } from '../application/__moduleName__-command.service';
+import { __ModuleClassName__QueryService } from '../application/__moduleName__-query.service';
+import { Create__ClassName__Dto } from './dto/create-__singularName__.dto';
+import { Update__ClassName__Dto } from './dto/update-__singularName__.dto';
+import { Create__ClassName__Command } from '../application/commands/create-__singularName__.command';
+import { Update__ClassName__Command } from '../application/commands/update-__singularName__.command';
+import { __ClassName__ResponseDto } from './dto/__singularName__-response.dto';
+
+@Controller('__moduleName__')
+export class __ClassName__Controller {
+  constructor(
+    private readonly commandService: __ModuleClassName__CommandService,
+    private readonly queryService: __ModuleClassName__QueryService,
+  ) {}
+
+  @Post()
+  async create(@Body() createDto: Create__ClassName__Dto) {
+    console.log(createDto);
+    const command = new Create__ClassName__Command();
+    const entity = await this.commandService.create(command);
+    return {
+      message: '__ClassName__ created successfully',
+      data: __ClassName__ResponseDto.fromEntity(entity),
+    };
+  }
+
+  @Get()
+  async findAll() {
+    const entities = await this.queryService.findAll();
+    return {
+      data: entities.map((e) => __ClassName__ResponseDto.fromEntity(e)),
+    };
+  }
+
+  @Get(':id')
+  async findOne(@Param('id') id: string) {
+    const entity = await this.queryService.findById(id);
+    return {
+      data: __ClassName__ResponseDto.fromEntity(entity),
+    };
+  }
+
+  @Patch(':id')
+  async update(@Param('id') id: string,@Body() updateDto: Update__ClassName__Dto) {
+    console.log(updateDto);
+    const command = new Update__ClassName__Command(
+      id,
+    );
+    
+    const entity = await this.commandService.update(command);
+    return {
+      message: '__ClassName__ updated successfully',
+      data: __ClassName__ResponseDto.fromEntity(entity),
+    };
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    await this.commandService.remove(id);
+    return { message: '__ClassName__ deleted successfully' };
+  }
+}

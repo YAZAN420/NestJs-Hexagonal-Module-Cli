@@ -1,0 +1,14 @@
+import { Injectable } from '@nestjs/common';
+import { __ClassName__ } from '../__singularName__';
+import { v7 as uuidv7 } from 'uuid';
+
+@Injectable()
+export class __ClassName__Factory {
+  public createNew(): __ClassName__ {
+    return new __ClassName__(uuidv7(), new Date(), new Date());
+  }
+
+  public reconstitute(id: string,createdAt: Date,updatedAt: Date,): __ClassName__ {
+    return new __ClassName__(id, createdAt , updatedAt );
+  }
+}

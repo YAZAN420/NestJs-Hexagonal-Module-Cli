@@ -1,0 +1,18 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { __ClassName__Repository } from './ports/__singularName__.repository';
+import { __ClassName__ } from '../domain/__singularName__';
+
+@Injectable()
+export class __ModuleClassName__QueryService {
+  constructor(private readonly repository: __ClassName__Repository) {}
+
+  async findAll(): Promise<__ClassName__[]> {
+    return this.repository.findAll();
+  }
+
+  async findById(id: string): Promise<__ClassName__> {
+    const entity = await this.repository.findById(id);
+    if (!entity) throw new NotFoundException('__ClassName__ not found');
+    return entity;
+  }
+}
