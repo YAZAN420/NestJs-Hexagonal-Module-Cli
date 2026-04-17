@@ -12,4 +12,8 @@ export class __ClassName__ {
   public getUpdatedAt(): Date {
     return this.updatedAt;
   }
+
+  public getId(): string {
+    return this.id;
+  }
 }

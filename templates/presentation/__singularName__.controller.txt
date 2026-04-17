@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  Query,
 } from '@nestjs/common';
 import { __ModuleClassName__CommandService } from '../application/__moduleName__-command.service';
 import { __ModuleClassName__QueryService } from '../application/__moduleName__-query.service';
@@ -14,6 +15,11 @@ import { Update__ClassName__Dto } from './dto/update-__singularName__.dto';
 import { Create__ClassName__Command } from '../application/commands/create-__singularName__.command';
 import { Update__ClassName__Command } from '../application/commands/update-__singularName__.command';
 import { __ClassName__ResponseDto } from './dto/__singularName__-response.dto';
+import {
+  CursorPageOptionsDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
+
 
 @Controller('__moduleName__')
 export class __ClassName__Controller {
@@ -34,10 +40,24 @@ export class __ClassName__Controller {
   }
 
   @Get()
-  async findAll() {
-    const entities = await this.queryService.findAll();
+  async findAll(@Query() pageOptionsDto: PageOptionsDto) {
+    const entities = await this.queryService.findAll(pageOptionsDto);
     return {
-      data: entities.map((e) => __ClassName__ResponseDto.fromEntity(e)),
+      meesage: '__ModuleClassName__ fetched successfully',
+      data: entities.data.map((__singularName__) => __ClassName__ResponseDto.fromEntity(__singularName__)),
+      meta: entities.meta
+    };
+  }
+
+  async findWithCursor(@Query() options: CursorPageOptionsDto) {
+    const result = await this.queryService.findAllCursor(options);
+
+    return {
+      message: '__ModuleClassName__ fetched successfully (Cursor)',
+      data: result.data.map((__singularName__) =>
+        __ClassName__ResponseDto.fromEntity(__singularName__),
+      ),
+      meta: result.meta,
     };
   }
 

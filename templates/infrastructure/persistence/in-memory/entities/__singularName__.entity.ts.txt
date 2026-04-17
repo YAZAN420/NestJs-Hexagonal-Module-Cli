@@ -1,5 +1,3 @@
-export class __ClassName__Entity {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { __ClassName__PersistenceData } from 'src/__moduleName__/domain/__singularName__-persistence.interface';
+
+export type InMemory__ClassName__Entity = __ClassName__PersistenceData;

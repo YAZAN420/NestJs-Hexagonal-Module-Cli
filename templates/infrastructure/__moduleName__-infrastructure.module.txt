@@ -5,7 +5,10 @@ import { InMemory__ClassName__PersistenceModule } from './persistence/in-memory/
 @Module({})
 export class __ModuleClassName__InfrastructureModule {
   static use(driver: 'mongoose' | 'in-memory') {
-    const persistenceModule = driver === 'mongoose'?Mongoose__ClassName__PersistenceModule:InMemory__ClassName__PersistenceModule
+    const persistenceModule =
+     driver === 'mongoose'
+       ? Mongoose__ClassName__PersistenceModule
+       : InMemory__ClassName__PersistenceModule;
     return {
       module: persistenceModule,
       imports: [persistenceModule],

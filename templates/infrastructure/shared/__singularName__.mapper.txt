@@ -1,0 +1,21 @@
+import { Injectable } from '@nestjs/common';
+import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
+import { __ClassName__Factory } from 'src/__moduleName__/domain/factories/__singularName__.factory';
+import { __ClassName__PersistenceData } from 'src/__moduleName__/domain/__singularName__-persistence.interface';
+
+@Injectable()
+export class __ClassName__Mapper {
+  constructor(private readonly __singularName__Factory: __ClassName__Factory) {}
+
+  toDomain(raw: __ClassName__PersistenceData): __ClassName__ {
+    return this.__singularName__Factory.reconstitute(raw);
+  }
+
+  toPersistence(__singularName__: __ClassName__): __ClassName__PersistenceData {
+    return {
+      _id: __singularName__.id,
+      createdAt: __singularName__.getCreatedAt(),
+      updatedAt: __singularName__.getUpdatedAt(),
+    };
+  }
+}

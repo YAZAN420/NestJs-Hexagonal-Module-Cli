@@ -1,0 +1,96 @@
+import { Injectable } from '@nestjs/common';
+import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
+import { __ClassName__Repository } from 'src/__moduleName__/application/ports/__singularName__.repository';
+import { __ClassName__Mapper } from '../../../shared/__singularName__.mapper';
+import { InMemory__ClassName__Entity } from '../entities/__singularName__.entity';
+import {
+  CursorPageDto,
+  CursorPageMetaDto,
+  CursorPageOptionsDto,
+  PageDto,
+  PageMetaDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
+
+@Injectable()
+export class InMemory__ClassName__Repository implements __ClassName__Repository {
+  private readonly store = new Map<string, InMemory__ClassName__Entity>();
+
+  constructor(private readonly mapper: __ClassName__Mapper) {}
+
+  async findAll(options: PageOptionsDto): Promise<PageDto<__ClassName__>> {
+    const entities = Array.from(this.store.values());
+    const domain__ModuleClassName__ = entities.map((entity) => this.mapper.toDomain(entity));
+    const startIndex = options.skip;
+    const endIndex = startIndex + options.take;
+    const paginatedItems = domain__ModuleClassName__.slice(startIndex, endIndex);
+    const itemCount = domain__ModuleClassName__.length;
+
+    const pageMetaDto = new PageMetaDto({
+      itemCount,
+      pageOptionsDto: options,
+    });
+
+    return Promise.resolve(new PageDto(paginatedItems, pageMetaDto));
+  }
+
+  async findAllCursor(
+    options: CursorPageOptionsDto,
+  ): Promise<CursorPageDto<__ClassName__>> {
+    const { cursor, take } = options;
+    const entities = Array.from(this.store.values());
+    const domain__ModuleClassName__ = entities.map((entity) => this.mapper.toDomain(entity));
+
+    domain__ModuleClassName__.sort((a, b) => b.getId().localeCompare(a.getId()));
+
+    let startIndex = 0;
+    if (cursor) {
+      const cursorIndex = domain__ModuleClassName__.findIndex(u => u.getId() === cursor);
+      startIndex = cursorIndex >= 0 ? cursorIndex + 1 : 0;
+    }
+
+    const paginatedItems = domain__ModuleClassName__.slice(
+      startIndex,
+      startIndex + take + 1,
+    );
+    const hasNextPage = paginatedItems.length > take;
+    if (hasNextPage) {
+      paginatedItems.pop();
+    }
+
+    const endCursor =
+      paginatedItems.length > 0
+        ? (paginatedItems[paginatedItems.length - 1]).getId()
+        : null;
+
+    const meta = new CursorPageMetaDto(hasNextPage, endCursor);
+    return Promise.resolve(new CursorPageDto(paginatedItems, meta));
+  }
+
+  async save(__singularName__: __ClassName__): Promise<void> {
+    const data = this.mapper.toPersistence(__singularName__);
+    this.store.set((__singularName__).getId(), data);
+    return Promise.resolve();
+  }
+
+  async delete(id: string): Promise<void> {
+    this.store.delete(id);
+    return Promise.resolve();
+  }
+
+  async findById(id: string): Promise<__ClassName__ | null> {
+    const entity = this.store.get(id);
+    return entity ? Promise.resolve(this.mapper.toDomain(entity)) : null;
+  }
+
+  private findOneBy(
+    predicate: (entity: InMemory__ClassName__Entity) => boolean,
+  ): __ClassName__ | null {
+    for (const entity of this.store.values()) {
+      if (predicate(entity)) {
+        return this.mapper.toDomain(entity);
+      }
+    }
+    return null;
+  }
+}

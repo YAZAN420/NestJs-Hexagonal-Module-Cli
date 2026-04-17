@@ -1,7 +1,16 @@
+import {
+  CursorPageDto,
+  CursorPageOptionsDto,
+  PageDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
 import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
 
 export abstract class __ClassName__Repository {
-  abstract findAll(): Promise<__ClassName__[]>;
+  abstract findAll(options: PageOptionsDto): Promise<PageDto<__ClassName__>>;
+  abstract findAllCursor(
+    options: CursorPageOptionsDto,
+  ): Promise<CursorPageDto<__ClassName__>>;
   abstract findById(id: string): Promise<__ClassName__ | null>;
   abstract save(__singularName__: __ClassName__): Promise<void>;
   abstract delete(id: string): Promise<void>;

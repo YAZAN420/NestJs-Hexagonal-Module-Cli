@@ -1,9 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
 @Schema({ timestamps: true })
-export class __ClassName__ {
+export class __ClassName__Document {
   @Prop({ type: String })
-  _id: string;
+  _id!: string;
 
   @Prop()
   createdAt?: Date;
@@ -12,4 +12,4 @@ export class __ClassName__ {
   updatedAt?: Date;
 }
 
-export const __ClassName__Schema = SchemaFactory.createForClass(__ClassName__);
+export const __ClassName__Schema = SchemaFactory.createForClass(__ClassName__Document);
