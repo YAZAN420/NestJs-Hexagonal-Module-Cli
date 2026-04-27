@@ -1,0 +1,18 @@
+import { Injectable } from '@nestjs/common';
+import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
+import { __ClassName__ResponseDto } from '../dto/__singularName__-response.dto';
+
+@Injectable()
+export class __ClassName__ResponseMapper {
+  toResponse(__singularName__: __ClassName__): __ClassName__ResponseDto {
+    return {
+      id: __singularName__.getId(),
+      createdAt: __singularName__.getCreatedAt(),
+      updatedAt: __singularName__.getUpdatedAt(),
+    };
+  }
+
+  toResponseMany(__moduleName__: __ClassName__[]): __ClassName__ResponseDto[] {
+    return __moduleName__.map((__singularName__) => this.toResponse(__singularName__));
+  }
+}

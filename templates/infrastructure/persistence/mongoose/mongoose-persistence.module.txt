@@ -1,22 +1,19 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import {
-  __ClassName__,
-  __ClassName__Schema,
-} from './schemas/__singularName__.schema';
-import { Mongoose__ClassName__Repository } from './repositories/__singularName__.repository';
-import { __ClassName__Mapper } from './mappers/__singularName__.mapper';
+import { ProductDocument, __ClassName__Schema } from './schemas/__singularName__.schema';
+import { Mongoose__ClassName__Repository } from './repositories/mongoose-__singularName__.repository';
+import { Mongoose__ClassName__Mapper } from './mappers/mongoose-__singularName__.mapper';
 import { __ClassName__Factory } from 'src/__moduleName__/domain/factories/__singularName__.factory';
 import { __ClassName__Repository } from 'src/__moduleName__/application/ports/__singularName__.repository';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: __ClassName__.name, schema: __ClassName__Schema },
+      { name: __ClassName__Document.name, schema: __ClassName__Schema },
     ]),
   ],
   providers: [
-    __ClassName__Mapper,
+    Mongoose__ClassName__Mapper,
     __ClassName__Factory,
     {
       provide: __ClassName__Repository,

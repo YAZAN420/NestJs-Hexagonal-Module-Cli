@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { InMemory__ClassName__Repository } from './repositories/__singularName__.repository';
-import { __ClassName__Mapper } from './mappers/__singularName__.mapper';
+import { InMemory__ClassName__Repository } from './repositories/in-memory-__singularName__.repository';
+import { InMemory__ClassName__Mapper } from './mappers/in-memory-__singularName__.mapper';
 import { __ClassName__Factory } from 'src/__moduleName__/domain/factories/__singularName__.factory';
 import { __ClassName__Repository } from 'src/__moduleName__/application/ports/__singularName__.repository';
 
 @Module({
   providers: [
-    __ClassName__Mapper,
+    InMemory__ClassName__Mapper,
     __ClassName__Factory,
     {
       provide: __ClassName__Repository,

@@ -1,4 +1,4 @@
-export interface __ClassName__PersistenceData {
+export interface __ClassName__Mongoose {
   _id: string;
   createdAt: Date;
   updatedAt: Date;

@@ -1,0 +1,18 @@
+import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
+import { InMemory__ClassName__Entity } from '../entities/__singularName__.entity';
+import { Injectable } from '@nestjs/common';
+
+@Injectable()
+export class InMemory__ClassName__Mapper {
+  toDomain(entity: InMemory__ClassName__Entity): __ClassName__ {
+    return new __ClassName__(entity.id, entity.createdAt, entity.updatedAt);
+  }
+
+  toPersistence(__singularName__: __ClassName__): InMemory__ClassName__Entity {
+    return {
+      id: __singularName__.getId(),
+      createdAt: __singularName__.getCreatedAt(),
+      updatedAt: __singularName__.getUpdatedAt(),
+    };
+  }
+}

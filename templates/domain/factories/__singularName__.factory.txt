@@ -1,15 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { __ClassName__ } from '../__singularName__';
 import { v7 as uuidv7 } from 'uuid';
-import { __ClassName__PersistenceData } from '../__singularName__-persistence.interface';
 
 @Injectable()
 export class __ClassName__Factory {
   public createNew(): __ClassName__ {
     return new __ClassName__(uuidv7(), new Date(), new Date());
-  }
-
-  public reconstitute(data: __ClassName__PersistenceData): __ClassName__ {
-    return new __ClassName__(data._id, data.createdAt, data.updatedAt);
   }
 }

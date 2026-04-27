@@ -3,12 +3,23 @@ import { __ClassName__Controller } from './presentation/__singularName__.control
 import { __ClassName__Factory } from './domain/factories/__singularName__.factory';
 import { __ModuleClassName__QueryService } from './application/__moduleName__-query.service';
 import { __ModuleClassName__CommandService } from './application/__moduleName__-command.service';
+import { __ClassName__ResponseMapper } from './presentation/mappers/__singularName__-response.mapper';
 
 @Module({
   imports: [], 
   controllers: [__ClassName__Controller],
-  providers: [__ModuleClassName__QueryService, __ModuleClassName__CommandService, __ClassName__Factory],
-  exports: [__ModuleClassName__QueryService, __ModuleClassName__CommandService, __ClassName__Factory],
+  providers: [
+    __ModuleClassName__QueryService, 
+    __ModuleClassName__CommandService, 
+    __ClassName__Factory, 
+    __ClassName__ResponseMapper
+    ],
+  exports: [
+    __ModuleClassName__QueryService,
+    __ModuleClassName__CommandService,
+    __ClassName__Factory,
+    __ClassName__ResponseMapper
+    ],
 })
 export class __ModuleClassName__Module {
   static withInfrastructure(infrastructureModule: Type | DynamicModule) {

@@ -29,7 +29,6 @@ const requiredFolders = [
   'domain/value-objects',
   'domain/factories',
   'infrastructure/persistence/in-memory/entities',
-  'infrastructure/shared',
   'infrastructure/persistence/in-memory/repositories',
   'infrastructure/persistence/mongoose/schemas',
   'infrastructure/persistence/mongoose/repositories',
