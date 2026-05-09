@@ -30,8 +30,6 @@ const requiredFolders = [
   'domain/factories',
   'infrastructure/persistence/in-memory/entities',
   'infrastructure/persistence/in-memory/repositories',
-  'infrastructure/persistence/mongoose/schemas',
-  'infrastructure/persistence/mongoose/repositories',
   'presentation/dto',
 ];
 

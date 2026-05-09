@@ -1,0 +1,76 @@
+import { Injectable } from '@nestjs/common';
+import { __ClassName__Repository } from 'src/__moduleName__/application/ports/__singularName__.repository';
+import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
+import { Prisma__ClassName__Mapper } from '../mappers/prisma-__singularName__.mapper';
+import {
+  CursorPageDto,
+  CursorPageMetaDto,
+  CursorPageOptionsDto,
+  PageDto,
+  PageMetaDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
+import { PrismaService } from 'src/core/database/prisma/prisma.service';
+
+@Injectable()
+export class Prisma__ClassName__Repository implements __ClassName__Repository {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly mapper: Prisma__ClassName__Mapper,
+  ) {}
+
+  async findAll(options: PageOptionsDto): Promise<PageDto<__ClassName__>> {
+    const [items, itemCount] = await Promise.all([
+      this.prisma.__singularName__.findMany({
+        skip: options.skip,
+        take: options.take,
+      }),
+      this.prisma.__singularName__.count(),
+    ]);
+
+    const domain__ModuleClassName__ = items.map((item) => this.mapper.toDomain(item));
+    const pageMetaDto = new PageMetaDto({ itemCount, pageOptionsDto: options });
+
+    return new PageDto(domain__ModuleClassName__, pageMetaDto);
+  }
+
+  async findAllCursor(
+    options: CursorPageOptionsDto,
+  ): Promise<CursorPageDto<__ClassName__>> {
+    const { cursor, take } = options;
+    const items = await this.prisma.__singularName__.findMany({
+      take: take + 1,
+      skip: cursor ? 1 : 0,
+      cursor: cursor ? { id: cursor } : undefined,
+      orderBy: { id: 'desc' },
+    });
+
+    const hasNextPage = items.length > take;
+    if (hasNextPage) items.pop();
+
+    const domain__ModuleClassName__ = items.map((item) => this.mapper.toDomain(item));
+    const endCursor = items.length > 0 ? items[items.length - 1].id : null;
+    const meta = new CursorPageMetaDto(hasNextPage, endCursor);
+
+    return new CursorPageDto(domain__ModuleClassName__, meta);
+  }
+
+  async save(__singularName__: __ClassName__): Promise<void> {
+    const data = this.mapper.toPersistence(__singularName__);
+    await this.prisma.__singularName__.upsert({
+      where: { id: __singularName__.getId() },
+      update: data,
+      create: data,
+    });
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.__singularName__.delete({ where: { id } });
+  }
+
+  async findById(id: string): Promise<__ClassName__ | null> {
+    const __singularName__ = await this.prisma.__singularName__.findUnique({ where: { id } });
+    return __singularName__ ? this.mapper.toDomain(__singularName__) : null;
+  }
+
+}

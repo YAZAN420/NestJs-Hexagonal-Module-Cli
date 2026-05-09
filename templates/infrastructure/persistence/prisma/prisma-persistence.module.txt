@@ -1,0 +1,16 @@
+import { Module } from '@nestjs/common';
+import { __ClassName__Repository } from 'src/__moduleName__/application/ports/__singularName__.repository';
+import { Prisma__ClassName__Repository } from './repositories/prisma-__singularName__.repository';
+import { Prisma__ClassName__Mapper } from './mappers/prisma-__singularName__.mapper';
+
+@Module({
+  providers: [
+    Prisma__ClassName__Mapper,
+    {
+      provide: __ClassName__Repository,
+      useClass: Prisma__ClassName__Repository,
+    },
+  ],
+  exports: [__ClassName__Repository],
+})
+export class PrismaPersistenceModule {}
