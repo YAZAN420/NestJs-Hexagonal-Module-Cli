@@ -19,7 +19,7 @@ import {
   CursorPageOptionsDto,
   PageOptionsDto,
 } from 'src/common/dtos/pagination';
-
+import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
 
 @Controller('__moduleName__')
 export class __ClassName__Controller {
@@ -49,9 +49,9 @@ export class __ClassName__Controller {
       meta: entities.meta
     };
   }
-
-  async findWithCursor(@Query() options: CursorPageOptionsDto) {
-    const result = await this.queryService.findAllCursor(options);
+  @Get('cursor')
+  async findAllCursor(@Query() cursorOptionsDto: CursorPageOptionsDto) {
+    const result = await this.queryService.findAllCursor(cursorOptionsDto);
 
     return {
       message: '__ModuleClassName__ fetched successfully (Cursor)',
@@ -61,8 +61,9 @@ export class __ClassName__Controller {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string) {
-    const entity = await this.queryService.findById(id);
+  async findOne(@Param('id') id: string,
+  @Query() withRelations?: WithRealtionsDto) {
+    const entity = await this.queryService.findById(id,withRelations);
     return {
       data: this.__singularName__ResponseMapper.toResponse(entity),
     };

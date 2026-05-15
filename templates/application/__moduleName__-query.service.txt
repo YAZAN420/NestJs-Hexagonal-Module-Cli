@@ -6,6 +6,7 @@ import {
   PageDto,
   PageOptionsDto,
 } from 'src/common/dtos/pagination';
+import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
 
 @Injectable()
 export class __ModuleClassName__QueryService {
@@ -15,12 +16,13 @@ export class __ModuleClassName__QueryService {
     return this.repository.findAll(pageOptionsDto);
   }
 
-  async findAllCursor(options: CursorPageOptionsDto) {
+  async findAllCursor(cursorOptionsDto: CursorPageOptionsDto) {
     return this.repository.findAllCursor(options);
   }
 
-  async findById(id: string): Promise<__ClassName__> {
-    const entity = await this.repository.findById(id);
+  async findById(id: string,
+        withRelations?: WithRealtionsDto): Promise<__ClassName__> {
+    const entity = await this.repository.findById(id,withRelations);
     if (!entity) throw new NotFoundException('__ClassName__ not found');
     return entity;
   }

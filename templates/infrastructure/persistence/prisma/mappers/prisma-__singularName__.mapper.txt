@@ -4,9 +4,11 @@ import type {
 } from 'src/generated/prisma/client';
 import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
 
+export type __ClassName__WithRelations = Prisma__ClassName__ & {};
+
 @Injectable()
 export class Prisma__ClassName__Mapper {
-  toDomain(raw: Prisma__ClassName__): __ClassName__ {
+  toDomain(raw: __ClassName__WithRelations): __ClassName__ {
     return new __ClassName__(
       raw.id,
       raw.createdAt,
