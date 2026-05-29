@@ -15,7 +15,7 @@ else if (moduleName.endsWith('s')) singularName = moduleName.slice(0, -1);
 const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
 const ClassName = capitalize(singularName);
 const ModuleClassName = capitalize(moduleName);
-
+const UpperClassName = singularName.toUpperCase();
 const templatesDir = path.join(__dirname, 'templates');
 const targetDir = path.join(process.cwd(), 'src', moduleName);
 
@@ -28,8 +28,6 @@ const requiredFolders = [
   'domain/enums',
   'domain/value-objects',
   'domain/factories',
-  'infrastructure/persistence/in-memory/entities',
-  'infrastructure/persistence/in-memory/repositories',
   'presentation/dto',
 ];
 
@@ -43,7 +41,8 @@ function transform(content) {
     .replace(/__ClassName__/g, ClassName)
     .replace(/__singularName__/g, singularName)
     .replace(/__moduleName__/g, moduleName)
-    .replace(/__ModuleClassName__/g, ModuleClassName);
+    .replace(/__ModuleClassName__/g, ModuleClassName)
+    .replace(/__UpperClassName__/g, UpperClassName);
 }
 
 function generate(templatePath, currentTargetDir) {
@@ -119,7 +118,7 @@ if (fs.existsSync(appModulePath)) {
         }
 
         if (closePos !== -1) {
-          const injectionCode = `\n        ${ModuleClassName}Module.withInfrastructure(\n          ${ModuleClassName}InfrastructureModule.use(options.driver),\n        ),`;
+          const injectionCode = `\n        ${ModuleClassName}Module.withInfrastructure(\n          ${ModuleClassName}InfrastructureModule.use(),\n        ),`;
           appContent =
             appContent.slice(0, closePos) +
             injectionCode +

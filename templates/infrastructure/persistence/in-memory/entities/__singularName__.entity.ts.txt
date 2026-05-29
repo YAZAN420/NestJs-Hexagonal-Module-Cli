@@ -1,5 +1,0 @@
-export interface InMemory__ClassName__Entity {
-  id: string;
-  createdAt: Date;
-  updatedAt: Date;
-}

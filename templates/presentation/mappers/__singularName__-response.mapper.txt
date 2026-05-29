@@ -6,9 +6,9 @@ import { __ClassName__ResponseDto } from '../dto/__singularName__-response.dto';
 export class __ClassName__ResponseMapper {
   toResponse(__singularName__: __ClassName__): __ClassName__ResponseDto {
     return {
-      id: __singularName__.getId(),
-      createdAt: __singularName__.getCreatedAt(),
-      updatedAt: __singularName__.getUpdatedAt(),
+      id: __singularName__.id,
+      createdAt: __singularName__.createdAt,
+      updatedAt: __singularName__.updatedAt,
     };
   }
 

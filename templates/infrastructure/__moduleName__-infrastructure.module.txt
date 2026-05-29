@@ -1,15 +1,11 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { InMemory__ClassName__PersistenceModule } from './persistence/in-memory/in-memory-persistence.module';
 import { PrismaPersistenceModule } from './persistence/prisma/prisma-persistence.module';
-import { DatabaseDriver } from 'src/core/database/database.module';
 
 @Module({})
 export class __ModuleClassName__InfrastructureModule {
-  static use(driver: DatabaseDriver): DynamicModule {
-    const persistenceModule =
-      driver === 'prisma'
-        ? PrismaPersistenceModule
-        : InMemory__ClassName__PersistenceModule;
+  static use(): DynamicModule {
+    const persistenceModule = PrismaPersistenceModule;
+
 
     return {
       module: __ModuleClassName__InfrastructureModule,

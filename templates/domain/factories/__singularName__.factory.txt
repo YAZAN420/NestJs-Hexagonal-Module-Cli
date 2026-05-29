@@ -5,6 +5,10 @@ import { v7 as uuidv7 } from 'uuid';
 @Injectable()
 export class __ClassName__Factory {
   public createNew(): __ClassName__ {
-    return new __ClassName__(uuidv7(), new Date(), new Date());
+    const now = new Date();
+    return new __ClassName__(uuidv7(),{ 
+      createdAt: now,
+      updatedAt: now,
+    });
   }
 }

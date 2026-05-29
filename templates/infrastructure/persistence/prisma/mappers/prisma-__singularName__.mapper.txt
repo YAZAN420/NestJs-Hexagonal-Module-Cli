@@ -4,23 +4,22 @@ import type {
 } from 'src/generated/prisma/client';
 import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
 
-export type __ClassName__WithRelations = Prisma__ClassName__ & {};
 
 @Injectable()
 export class Prisma__ClassName__Mapper {
-  toDomain(raw: __ClassName__WithRelations): __ClassName__ {
+  toDomain(raw: Prisma__ClassName__): __ClassName__ {
     return new __ClassName__(
-      raw.id,
-      raw.createdAt,
-      raw.updatedAt,
-    );
+      raw.id,{
+      createdAt: raw.createdAt,
+      updatedAt: raw.updatedAt,
+    });
   }
 
   toPersistence(__singularName__: __ClassName__): Prisma__ClassName__ {
     return {
-      id: __singularName__.getId(),
-      createdAt: __singularName__.getCreatedAt(),
-      updatedAt: __singularName__.getUpdatedAt(),
+      id: __singularName__.id,
+      createdAt: __singularName__.createdAt,
+      updatedAt: __singularName__.updatedAt,
     };
   }
 }

@@ -15,11 +15,8 @@ import { Update__ClassName__Dto } from './dto/update-__singularName__.dto';
 import { Create__ClassName__Command } from '../application/commands/create-__singularName__.command';
 import { Update__ClassName__Command } from '../application/commands/update-__singularName__.command';
 import { __ClassName__ResponseMapper } from './mappers/__singularName__-response.mapper'
-import {
-  CursorPageOptionsDto,
-  PageOptionsDto,
-} from 'src/common/dtos/pagination';
-import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
+import { Find__ModuleClassName__Dto } from 'src/__moduleName__/presentation/dto/filters/find-__moduleName__.dto';
+import { Find__ModuleClassName__CursorDto } from 'src/__moduleName__/presentation/dto/filters/find-__moduleName__-cursor.dto';
 
 @Controller('__moduleName__')
 export class __ClassName__Controller {
@@ -41,17 +38,17 @@ export class __ClassName__Controller {
   }
 
   @Get()
-  async findAll(@Query() pageOptionsDto: PageOptionsDto) {
-    const entities = await this.queryService.findAll(pageOptionsDto);
+  async findAll(@Query() options: Find__ModuleClassName__Dto) {
+    const entities = await this.queryService.findAll(options);
     return {
       meesage: '__ModuleClassName__ fetched successfully',
       data: this.__singularName__ResponseMapper.toResponseMany(entities.data),
-      meta: entities.meta
+      meta: entities.meta,
     };
   }
   @Get('cursor')
-  async findAllCursor(@Query() cursorOptionsDto: CursorPageOptionsDto) {
-    const result = await this.queryService.findAllCursor(cursorOptionsDto);
+  async findAllCursor(@Query() options: Find__ModuleClassName__CursorDto) {
+    const result = await this.queryService.findAllCursor(options);
 
     return {
       message: '__ModuleClassName__ fetched successfully (Cursor)',
@@ -61,9 +58,8 @@ export class __ClassName__Controller {
   }
 
   @Get(':id')
-  async findOne(@Param('id') id: string,
-  @Query() withRelations?: WithRealtionsDto) {
-    const entity = await this.queryService.findById(id,withRelations);
+  async findOne(@Param('id') id: string) {
+    const entity = await this.queryService.findById(id);
     return {
       data: this.__singularName__ResponseMapper.toResponse(entity),
     };

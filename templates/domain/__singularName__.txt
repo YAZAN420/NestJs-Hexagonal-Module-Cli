@@ -1,19 +1,19 @@
+export interface __ClassName__Props {
+  createdAt: Date;
+  updatedAt: Date;
+}
+
 export class __ClassName__ {
   constructor(
     public readonly id: string,
-    private createdAt: Date,
-    private updatedAt: Date,
+    private readonly props: __ClassName__Props,
   ) {}
 
-  public getCreatedAt(): Date {
-    return this.createdAt;
+  get createdAt(): Date {
+    return this.props.createdAt;
   }
 
-  public getUpdatedAt(): Date {
-    return this.updatedAt;
-  }
-
-  public getId(): string {
-    return this.id;
+  get updatedAt(): Date {
+    return this.props.updatedAt;
   }
 }
