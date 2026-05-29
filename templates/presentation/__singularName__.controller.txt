@@ -8,29 +8,23 @@ import {
   Delete,
   Query,
 } from '@nestjs/common';
-import { __ModuleClassName__CommandService } from '../application/__moduleName__-command.service';
-import { __ModuleClassName__QueryService } from '../application/__moduleName__-query.service';
 import { Create__ClassName__Dto } from './dto/create-__singularName__.dto';
 import { Update__ClassName__Dto } from './dto/update-__singularName__.dto';
-import { Create__ClassName__Command } from '../application/commands/create-__singularName__.command';
-import { Update__ClassName__Command } from '../application/commands/update-__singularName__.command';
-import { __ClassName__ResponseMapper } from './mappers/__singularName__-response.mapper'
+import { __ClassName__ResponseMapper } from './mappers/__singularName__-response.mapper';
 import { Find__ModuleClassName__Dto } from 'src/__moduleName__/presentation/dto/filters/find-__moduleName__.dto';
 import { Find__ModuleClassName__CursorDto } from 'src/__moduleName__/presentation/dto/filters/find-__moduleName__-cursor.dto';
+import { __ModuleClassName__Service } from 'src/__moduleName__/application/__moduleName__.service';
 
 @Controller('__moduleName__')
 export class __ClassName__Controller {
   constructor(
-    private readonly commandService: __ModuleClassName__CommandService,
-    private readonly queryService: __ModuleClassName__QueryService,
+    private readonly __singularName__Service: __ModuleClassName__Service,
     private readonly __singularName__ResponseMapper: __ClassName__ResponseMapper,
   ) {}
 
   @Post()
   async create(@Body() createDto: Create__ClassName__Dto) {
-    console.log(createDto);
-    const command = new Create__ClassName__Command();
-    const entity = await this.commandService.create(command);
+    const entity = await this.__singularName__Service.create(createDto);
     return {
       message: '__ClassName__ created successfully',
       data: this.__singularName__ResponseMapper.toResponse(entity),
@@ -39,7 +33,7 @@ export class __ClassName__Controller {
 
   @Get()
   async findAll(@Query() options: Find__ModuleClassName__Dto) {
-    const entities = await this.queryService.findAll(options);
+    const entities = await this.__singularName__Service.findAll(options);
     return {
       meesage: '__ModuleClassName__ fetched successfully',
       data: this.__singularName__ResponseMapper.toResponseMany(entities.data),
@@ -48,7 +42,7 @@ export class __ClassName__Controller {
   }
   @Get('cursor')
   async findAllCursor(@Query() options: Find__ModuleClassName__CursorDto) {
-    const result = await this.queryService.findAllCursor(options);
+    const result = await this.__singularName__Service.findAllCursor(options);
 
     return {
       message: '__ModuleClassName__ fetched successfully (Cursor)',
@@ -59,20 +53,18 @@ export class __ClassName__Controller {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const entity = await this.queryService.findById(id);
+    const entity = await this.__singularName__Service.findById(id);
     return {
       data: this.__singularName__ResponseMapper.toResponse(entity),
     };
   }
 
   @Patch(':id')
-  async update(@Param('id') id: string,@Body() updateDto: Update__ClassName__Dto) {
-    console.log(updateDto);
-    const command = new Update__ClassName__Command(
-      id,
-    );
-    
-    const entity = await this.commandService.update(command);
+  async update(
+    @Param('id') id: string,
+    @Body() updateDto: Update__ClassName__Dto,
+  ) {
+    const entity = await this.__singularName__Service.update(id,updateDto);
     return {
       message: '__ClassName__ updated successfully',
       data: this.__singularName__ResponseMapper.toResponse(entity),
@@ -81,7 +73,7 @@ export class __ClassName__Controller {
 
   @Delete(':id')
   async remove(@Param('id') id: string) {
-    await this.commandService.remove(id);
+    await this.__singularName__Service.remove(id);
     return { message: '__ClassName__ deleted successfully' };
   }
 }

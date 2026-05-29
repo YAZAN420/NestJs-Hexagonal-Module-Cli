@@ -1,3 +1,0 @@
-export class Update__ClassName__Command {
-  constructor(public readonly id: string) {}
-}

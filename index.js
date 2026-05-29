@@ -22,8 +22,6 @@ const targetDir = path.join(process.cwd(), 'src', moduleName);
 console.log(`Generating Hexagonal module: ${moduleName}...`);
 
 const requiredFolders = [
-  'application/commands',
-  'application/queries',
   'application/ports',
   'domain/enums',
   'domain/value-objects',
