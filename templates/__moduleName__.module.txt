@@ -1,8 +1,8 @@
 import { DynamicModule, Module, Type } from '@nestjs/common';
-import { __ClassName__Controller } from './presentation/__singularName__.controller';
+import { __ClassName__Controller } from './presentation/http/__singularName__.controller';
 import { __ClassName__Factory } from './domain/factories/__singularName__.factory';
 import { __ModuleClassName__Service } from './application/__moduleName__.service';
-import { __ClassName__ResponseMapper } from './presentation/mappers/__singularName__-response.mapper';
+import { __ClassName__ResponseMapper } from './presentation/http/mappers/__singularName__-response.mapper';
 
 @Module({
   imports: [], 

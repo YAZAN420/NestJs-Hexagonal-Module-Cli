@@ -2,10 +2,10 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { __ClassName__Repository } from './ports/__singularName__.repository';
 import { __ClassName__ } from '../domain/__singularName__';
 import { PageDto, CursorPageDto } from 'src/common/dtos/pagination';
-import { Find__ModuleClassName__Dto } from 'src/__moduleName__/presentation/dto/filters/find-__moduleName__.dto';
-import { Find__ModuleClassName__CursorDto } from 'src/__moduleName__/presentation/dto/filters/find-__moduleName__-cursor.dto';
-import { Create__ClassName__Dto } from '../presentation/dto/create-__singularName__.dto';
-import { Update__ClassName__Dto } from '../presentation/dto/update-__singularName__.dto';
+import { Find__ModuleClassName__Dto } from 'src/__moduleName__/presentation/http/dto/filters/find-__moduleName__.dto';
+import { Find__ModuleClassName__CursorDto } from 'src/__moduleName__/presentation/http/dto/filters/find-__moduleName__-cursor.dto';
+import { Create__ClassName__Dto } from '../presentation/http/dto/create-__singularName__.dto';
+import { Update__ClassName__Dto } from '../presentation/http/dto/update-__singularName__.dto';
 import { __ClassName__Factory } from '../domain/factories/__singularName__.factory';
 
 @Injectable()

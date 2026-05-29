@@ -11,8 +11,8 @@ import {
 import { Create__ClassName__Dto } from './dto/create-__singularName__.dto';
 import { Update__ClassName__Dto } from './dto/update-__singularName__.dto';
 import { __ClassName__ResponseMapper } from './mappers/__singularName__-response.mapper';
-import { Find__ModuleClassName__Dto } from 'src/__moduleName__/presentation/dto/filters/find-__moduleName__.dto';
-import { Find__ModuleClassName__CursorDto } from 'src/__moduleName__/presentation/dto/filters/find-__moduleName__-cursor.dto';
+import { Find__ModuleClassName__Dto } from 'src/__moduleName__/presentation/http/dto/filters/find-__moduleName__.dto';
+import { Find__ModuleClassName__CursorDto } from 'src/__moduleName__/presentation/http/dto/filters/find-__moduleName__-cursor.dto';
 import { __ModuleClassName__Service } from 'src/__moduleName__/application/__moduleName__.service';
 
 @Controller('__moduleName__')

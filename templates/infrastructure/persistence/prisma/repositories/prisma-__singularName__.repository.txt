@@ -9,8 +9,8 @@ import {
   PageMetaDto,
 } from 'src/common/dtos/pagination';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Find__ModuleClassName__Dto } from 'src/__moduleName__/presentation/dto/filters/find-__moduleName__.dto';
-import { Find__ModuleClassName__CursorDto } from 'src/__moduleName__/presentation/dto/filters/find-__moduleName__-cursor.dto';
+import { Find__ModuleClassName__Dto } from 'src/__moduleName__/presentation/http/dto/filters/find-__moduleName__.dto';
+import { Find__ModuleClassName__CursorDto } from 'src/__moduleName__/presentation/http/dto/filters/find-__moduleName__-cursor.dto';
 import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { Prisma } from 'src/generated/prisma/browser';
 

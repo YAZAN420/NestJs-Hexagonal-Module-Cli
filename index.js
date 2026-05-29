@@ -21,13 +21,7 @@ const targetDir = path.join(process.cwd(), 'src', moduleName);
 
 console.log(`Generating Hexagonal module: ${moduleName}...`);
 
-const requiredFolders = [
-  'application/ports',
-  'domain/enums',
-  'domain/value-objects',
-  'domain/factories',
-  'presentation/dto',
-];
+const requiredFolders = ['domain/enums', 'domain/value-objects'];
 
 requiredFolders.forEach((folder) => {
   const fullPath = path.join(targetDir, folder);
