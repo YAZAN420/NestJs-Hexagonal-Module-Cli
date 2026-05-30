@@ -1,0 +1,1 @@
+export interface Create__ClassName__Input {}

@@ -4,9 +4,9 @@ import { __ClassName__ } from '../domain/__singularName__';
 import { PageDto, CursorPageDto } from 'src/common/dtos/pagination';
 import { Find__ModuleClassName__Dto } from 'src/__moduleName__/presentation/http/dto/filters/find-__moduleName__.dto';
 import { Find__ModuleClassName__CursorDto } from 'src/__moduleName__/presentation/http/dto/filters/find-__moduleName__-cursor.dto';
-import { Create__ClassName__Dto } from '../presentation/http/dto/create-__singularName__.dto';
-import { Update__ClassName__Dto } from '../presentation/http/dto/update-__singularName__.dto';
 import { __ClassName__Factory } from '../domain/factories/__singularName__.factory';
+import { Create__ClassName__Input } from './interfaces/create-__singularName__-input.interface';
+import { Update__ClassName__Input } from './interfaces/update-__singularName__-input.interface';
 
 @Injectable()
 export class __ModuleClassName__Service {
@@ -15,9 +15,7 @@ export class __ModuleClassName__Service {
     private readonly __singularName__Factory: __ClassName__Factory,
   ) {}
 
-  async findAll(
-    options: Find__ModuleClassName__Dto,
-  ): Promise<PageDto<__ClassName__>> {
+  async findAll(options: Find__ModuleClassName__Dto): Promise<PageDto<__ClassName__>> {
     return this.__singularName__repository.findAll(options);
   }
 
@@ -33,15 +31,15 @@ export class __ModuleClassName__Service {
     return entity;
   }
 
-  async create(dto: Create__ClassName__Dto): Promise<__ClassName__> {
-    console.log(dto);
+  async create(input: Create__ClassName__Input): Promise<__ClassName__> {
+    console.log(input);
     const newEntity = this.__singularName__Factory.createNew();
     await this.__singularName__repository.save(newEntity);
     return newEntity;
   }
 
-  async update(id: string ,dto: Update__ClassName__Dto): Promise<__ClassName__> {
-    console.log(dto)
+  async update(id: string, input: Update__ClassName__Input): Promise<__ClassName__> {
+    console.log(input);
     const entity = await this.__singularName__repository.findById(id);
     if (!entity) throw new NotFoundException('__ClassName__ not found');
     await this.__singularName__repository.save(entity);

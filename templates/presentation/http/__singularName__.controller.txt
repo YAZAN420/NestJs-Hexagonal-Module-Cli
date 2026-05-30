@@ -60,11 +60,8 @@ export class __ClassName__Controller {
   }
 
   @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateDto: Update__ClassName__Dto,
-  ) {
-    const entity = await this.__singularName__Service.update(id,updateDto);
+  async update(@Param('id') id: string, @Body() updateDto: Update__ClassName__Dto) {
+    const entity = await this.__singularName__Service.update(id, updateDto);
     return {
       message: '__ClassName__ updated successfully',
       data: this.__singularName__ResponseMapper.toResponse(entity),

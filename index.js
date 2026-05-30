@@ -110,7 +110,7 @@ if (fs.existsSync(appModulePath)) {
         }
 
         if (closePos !== -1) {
-          const injectionCode = `\n        ${ModuleClassName}Module.withInfrastructure(\n          ${ModuleClassName}InfrastructureModule.use(),\n        ),`;
+          const injectionCode = `  ${ModuleClassName}Module.withInfrastructure(${ModuleClassName}InfrastructureModule.use()),`;
           appContent =
             appContent.slice(0, closePos) +
             injectionCode +
