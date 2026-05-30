@@ -1,0 +1,6 @@
+import { DateFilter } from '../../../common/interfaces/date-filter.interface';
+
+export interface __ClassName__Filter {
+  search?: string;
+  createdAt?: DateFilter;
+}

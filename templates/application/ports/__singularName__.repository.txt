@@ -1,13 +1,15 @@
 import { CursorPageDto, PageDto } from 'src/common/dtos/pagination';
 import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
-import { Find__ModuleClassName__CursorDto } from 'src/__moduleName__/presentation/http/dto/filters/find-__moduleName__-cursor.dto';
-import { Find__ModuleClassName__Dto } from 'src/__moduleName__/presentation/http/dto/filters/find-__moduleName__.dto';
+import {
+  Find__ModuleClassName__CursorQuery,
+  Find__ModuleClassName__Query,
+} from '../interfaces/find-__moduleName__.query';
 
 
 export abstract class __ClassName__Repository {
-  abstract findAll(options: Find__ModuleClassName__Dto): Promise<PageDto<__ClassName__>>;
+  abstract findAll(options: Find__ModuleClassName__Query): Promise<PageDto<__ClassName__>>;
   abstract findAllCursor(
-    options: Find__ModuleClassName__CursorDto,
+    options: Find__ModuleClassName__CursorQuery,
   ): Promise<CursorPageDto<__ClassName__>>;
   abstract findById(id: string): Promise<__ClassName__ | null>;
   abstract save(__singularName__: __ClassName__): Promise<void>;
