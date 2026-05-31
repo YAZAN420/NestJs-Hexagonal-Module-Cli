@@ -1,18 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
 import { __ClassName__ResponseDto } from '../dto/__singularName__-response.dto';
+import { __ClassName__ as Prisma__ClassName__ } from 'src/generated/prisma/browser';
+import { __ClassName__ as Domain__ClassName__ } from 'src/__moduleName__/domain/__singularName__';
 
 @Injectable()
 export class __ClassName__ResponseMapper {
-  toResponse(__singularName__: __ClassName__): __ClassName__ResponseDto {
-    return {
-      id: __singularName__.id,
-      createdAt: __singularName__.createdAt,
-      updatedAt: __singularName__.updatedAt,
-    };
+  toResponseFromPrisma(__singularName__: Prisma__ClassName__): __ClassName__ResponseDto {
+    return new __ClassName__ResponseDto(
+      __singularName__.id,
+      __singularName__.createdAt,
+      __singularName__.updatedAt,
+    );
   }
 
-  toResponseMany(__moduleName__: __ClassName__[]): __ClassName__ResponseDto[] {
-    return __moduleName__.map((__singularName__) => this.toResponse(__singularName__));
+  toResponseFromDomain(__singularName__: Domain__ClassName__): __ClassName__ResponseDto {
+    return new __ClassName__ResponseDto(
+      __singularName__.id,
+      __singularName__.createdAt,
+      __singularName__.updatedAt,
+    );
+  }
+
+  toResponseManyFromPrisma(__moduleName__: Prisma__ClassName__[]): __ClassName__ResponseDto[] {
+    return __moduleName__.map((__ClassName__) => this.toResponseFromPrisma(__singularName__));
   }
 }

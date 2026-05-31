@@ -1,0 +1,33 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
+
+import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
+
+import {
+  Find__ModuleClassName__CursorQuery,
+  Find__ModuleClassName__Query,
+} from './interfaces/find-__moduleName__.query';
+import { __ClassName__ } from 'src/generated/prisma/client';
+import { __ClassName__QueryRepository } from './ports/__singularName__-query.repository';
+import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
+
+@Injectable()
+export class __ModuleClassName__QueryService {
+  constructor(private readonly __singularName__QueryRepository: __ClassName__QueryRepository) {}
+
+  async findAll(pageOptionsDto: Find__ModuleClassName__Query): Promise<PageDto<__ClassName__>> {
+    return this.__singularName__QueryRepository.findAll(pageOptionsDto);
+  }
+
+  async findAllCursor(
+    options: Find__ModuleClassName__CursorQuery,
+  ): Promise<CursorPageDto<__ClassName__>> {
+    return this.__singularName__QueryRepository.findAllCursor(options);
+  }
+
+  async findById(id: string, options?: WithRealtionsDto): Promise<__ClassName__> {
+    const __singularName__ = await this.__singularName__QueryRepository.findById(id, options);
+    if (!__singularName__) throw new NotFoundException('__ClassName__ not found');
+    return __singularName__;
+  }
+}

@@ -1,6 +1,6 @@
 import { IntersectionType } from '@nestjs/swagger';
 import { PageOptionsDto } from 'src/common/dtos/pagination';
-import { Filter__ClassName__Dto } from './filter-__moduleName__.dto';
+import { Filter__ModuleClassName__Dto } from './filter-__moduleName__.dto';
 
 export class Find__ModuleClassName__Dto extends IntersectionType(
   PageOptionsDto,

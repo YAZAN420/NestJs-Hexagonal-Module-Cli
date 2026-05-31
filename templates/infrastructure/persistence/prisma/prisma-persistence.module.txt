@@ -1,16 +1,22 @@
 import { Module } from '@nestjs/common';
-import { __ClassName__Repository } from 'src/__moduleName__/application/ports/__singularName__.repository';
-import { Prisma__ClassName__Repository } from './repositories/prisma-__singularName__.repository';
+import { __ClassName__CommandRepository } from 'src/__moduleName__/application/ports/__singularName__-command.repository';
+import { Prisma__ClassName__CommandRepository } from './repositories/prisma-__singularName__-command.repository';
+import { __ClassName__QueryRepository } from 'src/__moduleName__/application/ports/__singularName__-query.repository';
+import { Prisma__ClassName__QueryRepository } from './repositories/prisma-__singularName__-query.repository';
 import { Prisma__ClassName__Mapper } from './mappers/prisma-__singularName__.mapper';
 
 @Module({
   providers: [
     Prisma__ClassName__Mapper,
     {
-      provide: __ClassName__Repository,
-      useClass: Prisma__ClassName__Repository,
+      provide: __ClassName__CommandRepository,
+      useClass: Prisma__ClassName__CommandRepository,
+    },
+    {
+      provide: __ClassName__QueryRepository,
+      useClass: Prisma__ClassName__QueryRepository,
     },
   ],
-  exports: [__ClassName__Repository],
+  exports: [__ClassName__CommandRepository, __ClassName__QueryRepository],
 })
 export class PrismaPersistenceModule {}

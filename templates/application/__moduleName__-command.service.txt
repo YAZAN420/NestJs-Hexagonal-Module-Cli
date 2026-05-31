@@ -1,0 +1,45 @@
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { __ClassName__CommandRepository } from './ports/__singularName__-command.repository';
+import { __ClassName__Factory } from '../domain/factories/__singularName__.factory';
+import { __ClassName__ } from '../domain/__singularName__';
+
+import { Create__ClassName__Input } from './interfaces/create-__singularName__-input.interface';
+import { Update__ClassName__Input } from './interfaces/update-__singularName__-input.interface';
+
+@Injectable()
+export class __ModuleClassName__CommandService {
+  constructor(
+    private readonly __singularName__CommandRepository: __ClassName__CommandRepository,
+    private readonly __singularName__Factory: __ClassName__Factory,
+  ) {}
+
+  async create(input: Create__ClassName__Input): Promise<__ClassName__> {
+    console.log(input);
+    const __singularName__ = this.__singularName__Factory.createNew();
+    await this.__singularName__CommandRepository.save(__singularName__);
+    return __singularName__;
+  }
+
+  async update(id: string, input: Update__ClassName__Input): Promise<__ClassName__> {
+    console.log(input);
+    const __singularName__ = await this.findById(id);
+    await this.__singularName__CommandRepository.save(__singularName__);
+    return __singularName__;
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.findById(id);
+    await this.__singularName__CommandRepository.delete(id);
+  }
+
+  async save(__singularName__: __ClassName__): Promise<void> {
+    await this.__singularName__CommandRepository.save(__singularName__);
+  }
+
+  async findById(id: string): Promise<__ClassName__> {
+    const __singularName__ = await this.__singularName__CommandRepository.findById(id);
+    if (!__singularName__) throw new NotFoundException('__singularName__ not found');
+    return __singularName__;
+  }
+
+}

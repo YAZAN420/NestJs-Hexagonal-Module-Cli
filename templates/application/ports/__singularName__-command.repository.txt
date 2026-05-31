@@ -1,0 +1,7 @@
+import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
+
+export abstract class __ClassName__CommandRepository {
+  abstract save(__singularName__: __ClassName__): Promise<void>;
+  abstract delete(id: string): Promise<void>;
+  abstract findById(id: string): Promise<__ClassName__ | null>;
+}

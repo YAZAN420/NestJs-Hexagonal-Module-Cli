@@ -1,0 +1,44 @@
+import { Controller, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Create__ClassName__Dto } from './dto/create-__singularName__.dto';
+import { Update__ClassName__Dto } from './dto/update-__singularName__.dto';
+
+import { __ClassName__ResponseMapper } from './mappers/__singularName__-response.mapper';
+import { __ModuleClassName__CommandService } from 'src/__moduleName__/application/__moduleName__-command.service';
+
+@Controller('__moduleName__')
+export class __ModuleClassName__CommandController {
+  constructor(
+    private readonly __singularName__CommandService: __ModuleClassName__CommandService,
+    private readonly __singularName__ResponseMapper: __ClassName__ResponseMapper,
+  ) {}
+
+  @Post()
+  async create(@Body() dto: Create__ClassName__Dto) {
+    const __singularName__ = await this.__singularName__CommandService.create(dto);
+
+    return {
+      message: '__ClassName__ created successfully',
+      data: this.__singularName__ResponseMapper.toResponseFromDomain(__singularName__),
+    };
+  }
+
+  @Patch(':id')
+  async update(@Param('id') id: string, @Body() dto: Update__ClassName__Dto) {
+    const __singularName__ = await this.__singularName__CommandService.update(id, dto);
+
+    return {
+      message: '__ClassName__ updated successfully',
+      data: this.__singularName__ResponseMapper.toResponseFromDomain(__singularName__),
+    };
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string) {
+    await this.__singularName__CommandService.remove(id);
+
+    return {
+      message: '__ClassName__ deleted successfully',
+      data: null,
+    };
+  }
+}

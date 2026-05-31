@@ -4,10 +4,12 @@ export interface Find__ModuleClassName__Query extends __ClassName__Filter {
   page: number;
   take: number;
   orderBy?: any;
+  with?: string[];
 }
 
 export interface Find__ModuleClassName__CursorQuery extends __ClassName__Filter {
   cursor?: string;
   take: number;
   orderBy?: any;
+  with?: string[];
 }

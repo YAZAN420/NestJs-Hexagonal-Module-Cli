@@ -1,0 +1,51 @@
+import { Controller, Get, Param, Query } from '@nestjs/common';
+
+import { Find__ModuleClassName__Dto } from './dto/filters/find-__moduleName__.dto';
+import { Find__ModuleClassName__CursorDto } from './dto/filters/find-__moduleName__-cursor.dto';
+
+import { __ModuleClassName__QueryService } from 'src/__moduleName__/application/__moduleName__-query.service';
+
+import { __ClassName__ResponseMapper } from './mappers/__singularName__-response.mapper';
+import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
+
+@Controller('__moduleName__')
+export class __ModuleClassName__QueryController {
+  constructor(
+    private readonly __singularName__QueryService: __ModuleClassName__QueryService,
+    private readonly __singularName__ResponseMapper: __ClassName__ResponseMapper,
+  ) {}
+
+  @Get()
+  async findAll(@Query() options: Find__ModuleClassName__Dto) {
+    const __moduleName__ = await this.__singularName__QueryService.findAll(options);
+    return {
+      message: '__ModuleClassName__ fetched successfully',
+      data: this.__singularName__ResponseMapper.toResponseManyFromPrism(__moduleName__.data),
+      meta: __moduleName__.meta,
+    };
+  }
+
+  @Get('cursor')
+  async findWithCursor(@Query() options: Find__ModuleClassName__CursorDto) {
+    const __moduleName__ = await this.__singularName__QueryService.findAllCursor(options);
+
+    return {
+      message: '__ModuleClassName__ fetched successfully (Cursor)',
+      data: this.__singularName__ResponseMapper.toResponseManyFromPrisma(__moduleName__.data),
+      meta: __moduleName__.meta,
+    };
+  }
+
+  @Get(':id')
+  async findOne(
+    @Param('id') id: string,
+    @Query() withRelations?: WithRealtionsDto,
+  ) {
+    const __singularName__ = await this.__singularName__QueryService.findById(id, withRelations);
+
+    return {
+      message: '__ClassName__ retrieved successfully',
+      data: this.__singularName__ResponseMapper.toResponseFromPrisma(__singularName__),
+    };
+  }
+}

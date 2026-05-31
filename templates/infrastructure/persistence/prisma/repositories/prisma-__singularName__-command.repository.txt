@@ -1,0 +1,31 @@
+import { Injectable } from '@nestjs/common';
+import { __ClassName__CommandRepository } from 'src/__moduleName__/application/ports/__singularName__-command.repository';
+import { __ClassName__ } from 'src/__moduleName__/domain/__singularName__';
+import { Prisma__ClassName__Mapper } from '../mappers/prisma-__singularName__.mapper';
+import { PrismaService } from 'src/core/database/prisma/prisma.service';
+
+@Injectable()
+export class Prisma__ClassName__CommandRepository implements __ClassName__CommandRepository {
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly mapper: Prisma__ClassName__Mapper,
+  ) {}
+
+  async save(__singularName__: __ClassName__): Promise<void> {
+    const data = this.mapper.toPersistence(__singularName__);
+    await this.prisma.__singularName__.upsert({
+      where: { id: __singularName__.id },
+      update: data,
+      create: data,
+    });
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.__singularName__.delete({ where: { id } });
+  }
+
+  async findById(id: string): Promise<__ClassName__ | null> {
+    const __singularName__ = await this.prisma.__singularName__.findUnique({ where: { id } });
+    return __singularName__ ? this.mapper.toDomain(__singularName__) : null;
+  }
+}

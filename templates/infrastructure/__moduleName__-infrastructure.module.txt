@@ -6,7 +6,6 @@ export class __ModuleClassName__InfrastructureModule {
   static use(): DynamicModule {
     const persistenceModule = PrismaPersistenceModule;
 
-
     return {
       module: __ModuleClassName__InfrastructureModule,
       imports: [persistenceModule],
