@@ -22,6 +22,6 @@ export class __ClassName__ResponseMapper {
   }
 
   toResponseManyFromPrisma(__moduleName__: Prisma__ClassName__[]): __ClassName__ResponseDto[] {
-    return __moduleName__.map((__ClassName__) => this.toResponseFromPrisma(__singularName__));
+    return __moduleName__.map((__singularName__) => this.toResponseFromPrisma(__singularName__));
   }
 }
