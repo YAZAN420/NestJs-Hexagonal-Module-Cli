@@ -1,5 +1,7 @@
 export class __ClassName__ResponseDto {
-  readonly id!: string;
-  readonly createdAt!: Date;
-  readonly updatedAt!: Date;
+  constructor(
+    readonly id: string,
+    readonly createdAt: Date,
+    readonly updatedAt: Date,
+  ) {}
 }

@@ -20,7 +20,7 @@ export class __ModuleClassName__QueryController {
     const __moduleName__ = await this.__singularName__QueryService.findAll(options);
     return {
       message: '__ModuleClassName__ fetched successfully',
-      data: this.__singularName__ResponseMapper.toResponseManyFromPrism(__moduleName__.data),
+      data: this.__singularName__ResponseMapper.toResponseManyFromPrisma(__moduleName__.data),
       meta: __moduleName__.meta,
     };
   }
