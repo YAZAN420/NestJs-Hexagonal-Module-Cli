@@ -4,15 +4,11 @@ import {
   Find__ModuleClassName__Query,
 } from '../interfaces/find-__moduleName__.query';
 import { __ClassName__ } from 'src/generated/prisma/browser';
-import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
 
 export abstract class __ClassName__QueryRepository {
   abstract findAll(options: Find__ModuleClassName__Query): Promise<PageDto<__ClassName__>>;
   abstract findAllCursor(
     options: Find__ModuleClassName__CursorQuery,
   ): Promise<CursorPageDto<__ClassName__>>;
-  abstract findById(
-    id: string,
-    options?: WithRealtionsDto,
-  ): Promise<__ClassName__ | null>;
+  abstract findById(id: string): Promise<__ClassName__ | null>;
 }
