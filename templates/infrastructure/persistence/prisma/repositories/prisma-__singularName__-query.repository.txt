@@ -3,7 +3,6 @@ import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
-import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
 import {
   buildNestedInclude,
   buildOrderBy,
@@ -20,7 +19,6 @@ import { __ClassName__QueryRepository } from 'src/__moduleName__/application/por
 
 const __UpperClassName___SEARCH_COLUMNS = [];
 const __UpperClassName___ORDERABLE_FIELDS = ['createdAt'];
-type __ClassName__Relation = keyof Prisma.__ClassName__Include;
 
 @Injectable()
 export class Prisma__ClassName__QueryRepository implements __ClassName__QueryRepository {
@@ -33,15 +31,11 @@ export class Prisma__ClassName__QueryRepository implements __ClassName__QueryRep
     return {
       where: buildWhere<T, Prisma.__ClassName__WhereInput>(options, __UpperClassName___SEARCH_COLUMNS),
       orderBy: buildOrderBy(options.orderBy, __UpperClassName___ORDERABLE_FIELDS),
-      include: buildNestedInclude<__ClassName__Include>(
-        options.with,
-        this.allowedRelations,
-      ),
     };
   }
 
   async findAll(options: Find__ModuleClassName__Query): Promise<PageDto<__ClassName__>> {
-    const { where, orderBy, include } = this.buildPrismaArgs(options);
+    const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([
@@ -49,7 +43,6 @@ export class Prisma__ClassName__QueryRepository implements __ClassName__QueryRep
         skip,
         take: options.take,
         where,
-        include,
         orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
       }),
       this.prisma.__singularName__.count({ where }),
@@ -64,7 +57,7 @@ export class Prisma__ClassName__QueryRepository implements __ClassName__QueryRep
   async findAllCursor(
     options: Find__ModuleClassName__CursorQuery,
   ): Promise<CursorPageDto<__ClassName__>> {
-    const { where, orderBy, include } = this.buildPrismaArgs(options);
+    const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
     const items = await this.prisma.__singularName__.findMany({
@@ -72,7 +65,6 @@ export class Prisma__ClassName__QueryRepository implements __ClassName__QueryRep
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
       where,
-      include,
       orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
     });
 
@@ -87,15 +79,9 @@ export class Prisma__ClassName__QueryRepository implements __ClassName__QueryRep
     );
   }
 
-  async findById(id: string, options?: WithRealtionsDto): Promise<__ClassName__ | null> {
-    const include = buildNestedInclude<__ClassName__Include>(
-      options?.with,
-      this.allowedRelations,
-    );
-
+  async findById(id: string): Promise<__ClassName__ | null> {
     return this.prisma.__singularName__.findUnique({
       where: { id },
-      include,
     });
   }
 }

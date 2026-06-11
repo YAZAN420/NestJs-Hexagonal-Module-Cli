@@ -9,7 +9,6 @@ import {
 } from './interfaces/find-__moduleName__.query';
 import { __ClassName__ } from 'src/generated/prisma/client';
 import { __ClassName__QueryRepository } from './ports/__singularName__-query.repository';
-import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
 
 @Injectable()
 export class __ModuleClassName__QueryService {
@@ -25,8 +24,8 @@ export class __ModuleClassName__QueryService {
     return this.__singularName__QueryRepository.findAllCursor(options);
   }
 
-  async findById(id: string, options?: WithRealtionsDto): Promise<__ClassName__> {
-    const __singularName__ = await this.__singularName__QueryRepository.findById(id, options);
+  async findById(id: string): Promise<__ClassName__> {
+    const __singularName__ = await this.__singularName__QueryRepository.findById(id);
     if (!__singularName__) throw new NotFoundException('__ClassName__ not found');
     return __singularName__;
   }

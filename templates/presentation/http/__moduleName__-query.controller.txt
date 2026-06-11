@@ -6,7 +6,6 @@ import { Find__ModuleClassName__CursorDto } from './dto/filters/find-__moduleNam
 import { __ModuleClassName__QueryService } from 'src/__moduleName__/application/__moduleName__-query.service';
 
 import { __ClassName__ResponseMapper } from './mappers/__singularName__-response.mapper';
-import { WithRealtionsDto } from 'src/common/dtos/with-realtions.dto';
 
 @Controller('__moduleName__')
 export class __ModuleClassName__QueryController {
@@ -39,9 +38,8 @@ export class __ModuleClassName__QueryController {
   @Get(':id')
   async findOne(
     @Param('id') id: string,
-    @Query() withRelations?: WithRealtionsDto,
   ) {
-    const __singularName__ = await this.__singularName__QueryService.findById(id, withRelations);
+    const __singularName__ = await this.__singularName__QueryService.findById(id);
 
     return {
       message: '__ClassName__ retrieved successfully',
