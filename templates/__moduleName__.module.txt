@@ -8,7 +8,7 @@ import { __ClassName__ResponseMapper } from './presentation/http/mappers/__singu
 
 @Module({
   imports: [], 
-  controllers: [__ModuleClassName__CommandController,         __ModuleClassName__QueryController],
+  controllers: [__ModuleClassName__CommandController, __ModuleClassName__QueryController],
   providers: [
     __ModuleClassName__CommandService,
     __ModuleClassName__QueryService,

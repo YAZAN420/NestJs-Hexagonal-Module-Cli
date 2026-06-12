@@ -3,11 +3,7 @@ import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
-import {
-  buildNestedInclude,
-  buildOrderBy,
-  buildWhere,
-} from 'src/common/utils/prisma.util';
+import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
 import { Prisma, __ClassName__ } from 'src/generated/prisma/browser';
 
@@ -24,7 +20,6 @@ const __UpperClassName___ORDERABLE_FIELDS = ['createdAt'];
 export class Prisma__ClassName__QueryRepository implements __ClassName__QueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private readonly allowedRelations: __ClassName__Relation[] = []
   private buildPrismaArgs<T extends Find__ModuleClassName__Query | Find__ModuleClassName__CursorQuery>(
     options: T,
   ) {

@@ -41,5 +41,4 @@ export class __ModuleClassName__CommandService {
     if (!__singularName__) throw new NotFoundException('__singularName__ not found');
     return __singularName__;
   }
-
 }
