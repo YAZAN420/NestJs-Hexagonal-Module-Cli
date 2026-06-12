@@ -19,24 +19,24 @@ export class __ModuleClassName__CommandService {
     return __singularName__;
   }
 
-  async update(id: string, input: Update__ClassName__Input): Promise<__ClassName__> {
+  async update(__singularName__Id: string, input: Update__ClassName__Input): Promise<__ClassName__> {
     console.log(input);
-    const __singularName__ = await this.findById(id);
+    const __singularName__ = await this.findById(__singularName__Id);
     await this.__singularName__CommandRepository.save(__singularName__);
     return __singularName__;
   }
 
-  async remove(id: string): Promise<void> {
-    await this.findById(id);
-    await this.__singularName__CommandRepository.delete(id);
+  async remove(__singularName__Id): Promise<void> {
+    await this.findById(__singularName__Id);
+    await this.__singularName__CommandRepository.delete(__singularName__Id);
   }
 
   async save(__singularName__: __ClassName__): Promise<void> {
     await this.__singularName__CommandRepository.save(__singularName__);
   }
 
-  async findById(id: string): Promise<__ClassName__> {
-    const __singularName__ = await this.__singularName__CommandRepository.findById(id);
+  async findById(__singularName__Id): Promise<__ClassName__> {
+    const __singularName__ = await this.__singularName__CommandRepository.findById(__singularName__Id);
     if (!__singularName__) throw new NotFoundException('__singularName__ not found');
     return __singularName__;
   }
