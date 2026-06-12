@@ -14,8 +14,7 @@ export class __ModuleClassName__CommandService {
   ) {}
 
   async create(input: Create__ClassName__Input): Promise<__ClassName__> {
-    console.log(input);
-    const __singularName__ = this.__singularName__Factory.createNew();
+    const __singularName__ = this.__singularName__Factory.createNew(input);
     await this.__singularName__CommandRepository.save(__singularName__);
     return __singularName__;
   }
