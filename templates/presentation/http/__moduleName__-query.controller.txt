@@ -35,11 +35,11 @@ export class __ModuleClassName__QueryController {
     };
   }
 
-  @Get(':id')
+  @Get(':__singularName__Id')
   async findOne(
-    @Param('id') id: string,
+    @Param('__singularName__Id') __singularName__Id: string,
   ) {
-    const __singularName__ = await this.__singularName__QueryService.findById(id);
+    const __singularName__ = await this.__singularName__QueryService.findById(__singularName__Id);
 
     return {
       message: '__ClassName__ retrieved successfully',

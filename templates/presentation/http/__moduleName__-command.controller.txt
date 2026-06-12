@@ -22,9 +22,9 @@ export class __ModuleClassName__CommandController {
     };
   }
 
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() dto: Update__ClassName__Dto) {
-    const __singularName__ = await this.__singularName__CommandService.update(id, dto);
+  @Patch(':__singularName__Id')
+  async update(@Param('__singularName__Id') __singularName__Id: string, @Body() dto: Update__ClassName__Dto) {
+    const __singularName__ = await this.__singularName__CommandService.update(__singularName__Id, dto);
 
     return {
       message: '__ClassName__ updated successfully',
@@ -32,9 +32,9 @@ export class __ModuleClassName__CommandController {
     };
   }
 
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    await this.__singularName__CommandService.remove(id);
+  @Delete(':__singularName__Id')
+  async remove(@Param('__singularName__Id') __singularName__Id: string) {
+    await this.__singularName__CommandService.remove(__singularName__Id);
 
     return {
       message: '__ClassName__ deleted successfully',
