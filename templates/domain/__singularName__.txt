@@ -1,7 +1,4 @@
-export interface __ClassName__Props {
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { __ClassName__Props } from './interfaces/__singularName__.props';
 
 export class __ClassName__ {
   constructor(

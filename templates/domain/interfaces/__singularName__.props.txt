@@ -1,0 +1,4 @@
+export interface __ClassName__Props {
+  createdAt: Date;
+  updatedAt: Date;
+}
