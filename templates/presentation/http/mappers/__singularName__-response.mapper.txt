@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { __ClassName__ResponseDto } from '../dto/__singularName__-response.dto';
-import { __ClassName__ as Prisma__ClassName__ } from 'src/generated/prisma/browser';
+import { __ClassName__ as Prisma__ClassName__ } from 'src/generated/prisma/client';
 import { __ClassName__ as Domain__ClassName__ } from 'src/__moduleName__/domain/__singularName__';
 
 @Injectable()

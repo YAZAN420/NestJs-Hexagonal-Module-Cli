@@ -3,7 +3,7 @@ import {
   Find__ModuleClassName__CursorQuery,
   Find__ModuleClassName__Query,
 } from '../interfaces/find-__moduleName__.query';
-import { __ClassName__ } from 'src/generated/prisma/browser';
+import { __ClassName__ } from 'src/generated/prisma/client';
 
 export abstract class __ClassName__QueryRepository {
   abstract findAll(options: Find__ModuleClassName__Query): Promise<PageDto<__ClassName__>>;
