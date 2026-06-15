@@ -26,7 +26,7 @@ export class __ModuleClassName__CommandService {
     return __singularName__;
   }
 
-  async remove(__singularName__Id): Promise<void> {
+  async remove(__singularName__Id: string): Promise<void> {
     await this.findById(__singularName__Id);
     await this.__singularName__CommandRepository.delete(__singularName__Id);
   }
@@ -35,7 +35,7 @@ export class __ModuleClassName__CommandService {
     await this.__singularName__CommandRepository.save(__singularName__);
   }
 
-  async findById(__singularName__Id): Promise<__ClassName__> {
+  async findById(__singularName__Id: string): Promise<__ClassName__> {
     const __singularName__ = await this.__singularName__CommandRepository.findById(__singularName__Id);
     if (!__singularName__) throw new NotFoundException('__singularName__ not found');
     return __singularName__;
