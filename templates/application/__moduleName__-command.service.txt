@@ -31,10 +31,6 @@ export class __ModuleClassName__CommandService {
     await this.__singularName__CommandRepository.delete(__singularName__Id);
   }
 
-  async save(__singularName__: __ClassName__): Promise<void> {
-    await this.__singularName__CommandRepository.save(__singularName__);
-  }
-
   async findById(__singularName__Id: string): Promise<__ClassName__> {
     const __singularName__ = await this.__singularName__CommandRepository.findById(__singularName__Id);
     if (!__singularName__) throw new NotFoundException('__singularName__ not found');
