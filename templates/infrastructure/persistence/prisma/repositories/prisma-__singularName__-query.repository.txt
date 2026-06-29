@@ -3,9 +3,8 @@ import { CursorPageMetaDto } from 'src/common/dtos/pagination/cursor/cursor-page
 import { CursorPageDto } from 'src/common/dtos/pagination/cursor/cursor-page.dto';
 import { PageMetaDto } from 'src/common/dtos/pagination/offset/page-meta.dto';
 import { PageDto } from 'src/common/dtos/pagination/offset/page.dto';
-import { buildOrderBy, buildWhere } from 'src/common/utils/prisma.util';
 import { PrismaService } from 'src/core/database/prisma/prisma.service';
-import { Prisma, __ClassName__ } from 'src/generated/prisma/client';
+import { __ClassName__ } from 'src/generated/prisma/client';
 
 import {
   Find__ModuleClassName__CursorQuery,
@@ -13,32 +12,18 @@ import {
 } from 'src/__moduleName__/application/interfaces/find-__moduleName__.query';
 import { __ClassName__QueryRepository } from 'src/__moduleName__/application/ports/__singularName__-query.repository';
 
-const __UpperClassName___SEARCH_COLUMNS = [];
-const __UpperClassName___ORDERABLE_FIELDS = ['createdAt'];
-
 @Injectable()
 export class Prisma__ClassName__QueryRepository implements __ClassName__QueryRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  private buildPrismaArgs<T extends Find__ModuleClassName__Query | Find__ModuleClassName__CursorQuery>(
-    options: T,
-  ) {
-    return {
-      where: buildWhere<T, Prisma.__ClassName__WhereInput>(options, __UpperClassName___SEARCH_COLUMNS),
-      orderBy: buildOrderBy(options.orderBy, __UpperClassName___ORDERABLE_FIELDS),
-    };
-  }
-
   async findAll(options: Find__ModuleClassName__Query): Promise<PageDto<__ClassName__>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const skip = (options.page - 1) * options.take;
 
     const [items, itemCount] = await Promise.all([
       this.prisma.__singularName__.findMany({
         skip,
         take: options.take,
-        where,
-        orderBy: orderBy.length > 0 ? orderBy : [{ createdAt: 'desc' }],
+        orderBy: [{ createdAt: 'desc' }],
       }),
       this.prisma.__singularName__.count({ where }),
     ]);
@@ -52,15 +37,13 @@ export class Prisma__ClassName__QueryRepository implements __ClassName__QueryRep
   async findAllCursor(
     options: Find__ModuleClassName__CursorQuery,
   ): Promise<CursorPageDto<__ClassName__>> {
-    const { where, orderBy } = this.buildPrismaArgs(options);
     const { cursor, take } = options;
 
     const items = await this.prisma.__singularName__.findMany({
       take: take + 1,
       skip: cursor ? 1 : 0,
       cursor: cursor ? { id: cursor } : undefined,
-      where,
-      orderBy: orderBy.length > 0 ? orderBy : [{ id: 'desc' }],
+      orderBy: [{ id: 'desc' }],
     });
 
     const hasNextPage = items.length > take;
