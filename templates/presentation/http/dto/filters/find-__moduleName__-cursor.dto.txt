@@ -1,8 +1,0 @@
-import { IntersectionType } from '@nestjs/swagger';
-import { CursorPageOptionsDto } from 'src/common/dtos/pagination';
-import { Filter__ModuleClassName__Dto } from './filter-__moduleName__.dto';
-
-export class Find__ModuleClassName__CursorDto extends IntersectionType(
-  CursorPageOptionsDto,
-  Filter__ModuleClassName__Dto,
-) {}

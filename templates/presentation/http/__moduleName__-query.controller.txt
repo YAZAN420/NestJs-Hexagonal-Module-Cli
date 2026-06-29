@@ -1,7 +1,9 @@
 import { Controller, Get, Param, Query } from '@nestjs/common';
 
-import { Find__ModuleClassName__Dto } from './dto/filters/find-__moduleName__.dto';
-import { Find__ModuleClassName__CursorDto } from './dto/filters/find-__moduleName__-cursor.dto';
+import {
+  CursorPageOptionsDto,
+  PageOptionsDto,
+} from 'src/common/dtos/pagination';
 
 import { __ModuleClassName__QueryService } from 'src/__moduleName__/application/__moduleName__-query.service';
 
@@ -15,7 +17,7 @@ export class __ModuleClassName__QueryController {
   ) {}
 
   @Get()
-  async findAll(@Query() options: Find__ModuleClassName__Dto) {
+  async findAll(@Query() options: PageOptionsDto) {
     const __moduleName__ = await this.__singularName__QueryService.findAll(options);
     return {
       message: '__ModuleClassName__ fetched successfully',
@@ -25,7 +27,7 @@ export class __ModuleClassName__QueryController {
   }
 
   @Get('cursor')
-  async findWithCursor(@Query() options: Find__ModuleClassName__CursorDto) {
+  async findWithCursor(@Query() options: CursorPageOptionsDto) {
     const __moduleName__ = await this.__singularName__QueryService.findAllCursor(options);
 
     return {
