@@ -25,7 +25,7 @@ export class Prisma__ClassName__QueryRepository implements __ClassName__QueryRep
         take: options.take,
         orderBy: [{ createdAt: 'desc' }],
       }),
-      this.prisma.__singularName__.count({ where }),
+      this.prisma.__singularName__.count(),
     ]);
 
     return new PageDto(
