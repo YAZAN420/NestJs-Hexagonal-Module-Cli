@@ -2,63 +2,26 @@
 const fs = require('fs');
 const path = require('path');
 
-const inputName = process.argv[2];
-if (!inputName) {
+const moduleName = process.argv[2];
+if (!moduleName) {
+  console.error('Error: Please provide a module name! (e.g., my-hex products)');
   process.exit(1);
 }
 
-const toKebab = (str) =>
-  str
-    .replace(/([a-z])([A-Z])/g, '$1-$2')
-    .replace(/[\s_]+/g, '-')
-    .toLowerCase();
+let singularName = moduleName;
+if (moduleName.endsWith('ies')) singularName = moduleName.slice(0, -3) + 'y';
+else if (moduleName.endsWith('s')) singularName = moduleName.slice(0, -1);
 
-const moduleName = toKebab(inputName);
-
-function toSingular(word) {
-  if (word.endsWith('ies')) return word.slice(0, -3) + 'y';
-  if (word.endsWith('sses') || word.endsWith('shes') || word.endsWith('xes'))
-    return word.slice(0, -2);
-  if (word.endsWith('ss') || word.endsWith('us') || word.endsWith('is'))
-    return word;
-  if (word.endsWith('s')) return word.slice(0, -1);
-  return word;
-}
-
-const singularName = toSingular(moduleName);
-
-const toPascal = (str) =>
-  str
-    .split('-')
-    .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
-    .join('');
-
-const toCamel = (str) => {
-  const pascal = toPascal(str);
-  return pascal.charAt(0).toLowerCase() + pascal.slice(1);
-};
-
-const toUpperSnake = (str) => str.replace(/-/g, '_').toUpperCase();
-
-const tokens = {
-  __moduleName__: moduleName, // e.g. order-items
-  __singularName__: singularName, // e.g. order-item
-  __ClassName__: toPascal(singularName), // e.g. OrderItem
-  __ModuleClassName__: toPascal(moduleName), // e.g. OrderItems
-  __camelName__: toCamel(singularName), // e.g. orderItem
-  __moduleCamelName__: toCamel(moduleName), // e.g. orderItems
-  __UpperClassName__: toUpperSnake(singularName), // e.g. ORDER_ITEM
-};
-
+const capitalize = (s) => s.charAt(0).toUpperCase() + s.slice(1);
+const ClassName = capitalize(singularName);
+const ModuleClassName = capitalize(moduleName);
+const UpperClassName = singularName.toUpperCase();
 const templatesDir = path.join(__dirname, 'templates');
 const targetDir = path.join(process.cwd(), 'src', moduleName);
 
-const requiredFolders = [
-  'domain/enums',
-  'domain/value-objects',
-  'domain/events',
-  'application/facades',
-];
+console.log(`Generating Hexagonal module: ${moduleName}...`);
+
+const requiredFolders = ['domain/enums', 'domain/value-objects'];
 
 requiredFolders.forEach((folder) => {
   const fullPath = path.join(targetDir, folder);
@@ -66,11 +29,12 @@ requiredFolders.forEach((folder) => {
 });
 
 function transform(content) {
-  let result = content;
-  for (const [key, value] of Object.entries(tokens)) {
-    result = result.split(key).join(value);
-  }
-  return result;
+  return content
+    .replace(/__ClassName__/g, ClassName)
+    .replace(/__singularName__/g, singularName)
+    .replace(/__moduleName__/g, moduleName)
+    .replace(/__ModuleClassName__/g, ModuleClassName)
+    .replace(/__UpperClassName__/g, UpperClassName);
 }
 
 function generate(templatePath, currentTargetDir) {
@@ -92,42 +56,77 @@ function generate(templatePath, currentTargetDir) {
       generate(currentItemPath, path.join(currentTargetDir, newFileName));
     });
   } else {
-    const content = fs.readFileSync(templatePath, 'utf8');
+    let content = fs.readFileSync(templatePath, 'utf8');
     fs.writeFileSync(currentTargetDir, transform(content), 'utf8');
   }
 }
 
 if (fs.existsSync(templatesDir)) {
   generate(templatesDir, targetDir);
+  console.log('✅ Templates generated successfully!');
 } else {
+  console.error('❌ Error: templates folder not found.');
   process.exit(1);
 }
 
-injectIntoAppModule();
-
-function injectIntoAppModule() {
-  const appModulePath = path.join(process.cwd(), 'src', 'app.module.ts');
-  if (!fs.existsSync(appModulePath)) return;
-
+const appModulePath = path.join(process.cwd(), 'src', 'app.module.ts');
+if (fs.existsSync(appModulePath)) {
   let appContent = fs.readFileSync(appModulePath, 'utf8');
-  const moduleClass = `${tokens.__ModuleClassName__Module}`;
 
-  if (appContent.includes(moduleClass)) {
-    return;
-  }
+  if (!appContent.includes(`${ModuleClassName}Module.withInfrastructure`)) {
+    const importsToAdd = `import { ${ModuleClassName}Module } from './${moduleName}/${moduleName}.module';\nimport { ${ModuleClassName}InfrastructureModule } from './${moduleName}/infrastructure/${moduleName}-infrastructure.module';\n`;
 
-  const importStatement = `import { ${moduleClass} } from './${moduleName}/${moduleName}.module';\nimport { ${tokens.__ModuleClassName__InfrastructureModule} from './${moduleName}/infrastructure/${moduleName}-infrastructure.module';\n`;
-  appContent = importStatement + appContent;
+    const lastImportMatch = [...appContent.matchAll(/^import .*;/gm)].pop();
+    const insertPos = lastImportMatch
+      ? lastImportMatch.index + lastImportMatch[0].length
+      : 0;
 
-  const importsRegex = /imports\s*:\s*\[([\s\S]*?)\]/;
-  const match = appContent.match(importsRegex);
+    appContent =
+      appContent.slice(0, insertPos) +
+      '\n' +
+      importsToAdd +
+      appContent.slice(insertPos);
 
-  if (match) {
-    const injection = `\n    ${moduleClass}.withInfrastructure(${tokens.__ModuleClassName__InfrastructureModule}.use()),`;
-    const updatedImports = `imports: [${match[1].trimEnd()}${injection}\n  ]`;
-    appContent = appContent.replace(importsRegex, updatedImports);
+    const registerStart = appContent.indexOf('static register');
+    if (registerStart !== -1) {
+      const importsArrayStart = appContent.indexOf('imports: [', registerStart);
+
+      if (importsArrayStart !== -1) {
+        let brackets = 0;
+        let closePos = -1;
+        for (
+          let i = importsArrayStart + 'imports: ['.length;
+          i < appContent.length;
+          i++
+        ) {
+          if (appContent[i] === '[') brackets++;
+          else if (appContent[i] === ']') {
+            if (brackets === 0) {
+              closePos = i;
+              break;
+            }
+            brackets--;
+          }
+        }
+
+        if (closePos !== -1) {
+          const injectionCode = `  ${ModuleClassName}Module.withInfrastructure(${ModuleClassName}InfrastructureModule.use()),`;
+          appContent =
+            appContent.slice(0, closePos) +
+            injectionCode +
+            '\n      ' +
+            appContent.slice(closePos);
+        }
+      }
+    }
+
     fs.writeFileSync(appModulePath, appContent, 'utf8');
+    console.log(
+      `✅ Injected ${ModuleClassName} dynamically into app.module.ts!`,
+    );
   } else {
-    console.warn();
+    console.log(
+      `⚠️ ${ModuleClassName} is already in app.module.ts. Skipped injection.`,
+    );
   }
 }
