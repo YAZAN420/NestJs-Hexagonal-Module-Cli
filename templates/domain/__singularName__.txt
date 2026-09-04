@@ -13,4 +13,8 @@ export class __ClassName__ {
   get updatedAt(): Date {
     return this.props.updatedAt;
   }
+
+  private touch(): void {
+    this.props.updatedAt = new Date();
+  }
 }
